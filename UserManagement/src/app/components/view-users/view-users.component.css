@@ -1,0 +1,25 @@
+.header-banner{
+    background: black;
+}
+
+.cardFooter{
+    background: #ccc;
+}
+
+.error{
+    font-size: 12px;
+    font-weight: 600;
+}
+
+input{
+    font-size: 14px;
+}
+
+.is-invalid{
+    border-color: red;
+}
+
+.noUsers{
+    padding: 1em;
+    font-style: italic;
+}

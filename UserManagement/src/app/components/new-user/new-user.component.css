@@ -1,0 +1,22 @@
+.register-wrapper{
+    background: #fff;
+    padding: 2em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+.header-banner{
+    background: #000;
+}
+
+input{
+    font-size: 14px;
+}
+
+.error{
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.is-invalid{
+    border-color: red;
+}

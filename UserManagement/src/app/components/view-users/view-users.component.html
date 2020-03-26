@@ -1,0 +1,109 @@
+<div>
+    <div class="d-flex justify-content-between align-items-center p-3 header-banner">
+        <h5 class="text-white">USER MANAGEMENT PORTAL</h5>
+        <div>
+            <button class="btn btn-primary" [routerLink]="['/home']">Home</button>
+            <button class="btn btn-warning ml-3" [routerLink]="['/new-user']">+ New User</button>
+        </div>
+    </div>
+
+    <h5 class="pt-3 pl-3">List of registered users</h5>
+
+    <div *ngIf="noUsers" class="noUsers">No users found.</div>
+
+    <div *ngFor="let user of users" class="m-3">
+        <div class="card mt-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="name-email">
+                    <div>{{user.FirstName}} {{user.LastName}}</div>
+                    <div>Email: {{user.Email}}</div>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn btn-secondary" (click)="expandSection(user)">Edit</button>
+                    <button type="button" class="ml-3 btn btn-danger" (click)="deleteUser(user)">Delete</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <h6 class="m-0">Address</h6>
+                <div>{{user.StreetNumber}}, {{user.StreetName}}</div>
+                <div>{{user.CitySuburb}}, {{user.State}}, {{user.Postcode}}</div>
+            </div>
+        </div>
+
+        <div class="card-footer cardFooter" *ngIf="user.isExpanded">
+            <form class="register-wrapper mb-5" (ngSubmit)="onSubmit(user.Id)">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputfname4">First Name</label>
+                        <input type="text" required class="form-control" id="inputfname4"
+                            value="{{user.FirstName}}"
+                            [ngClass]="{ 'is-invalid':firstNameError }" placeholder="First Name">
+                        <div *ngIf="firstNameError" class="text-danger error">First name is required</div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputlname4">Last Name</label>
+                        <input type="text" required class="form-control" id="inputlname4"
+                            [ngClass]="{ 'is-invalid':lastNameError }" 
+                            value="{{user.LastName}}" placeholder="Last Name">
+                        <div *ngIf="lastNameError" class="text-danger error">Last name is required</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" required class="form-control"
+                        [ngClass]="{ 'is-invalid':emailError }" id="inputEmail"
+                        value="{{user.Email}}" placeholder="Email Address">
+                    <div *ngIf="emailError" class="text-danger error">Email is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddressStreetNumber">Street Number</label>
+                    <input required ngx-google-places-autocomplete class="form-control" placeholder="Street Number"
+                        id="inputAddressStreetNumber" #placesRef="ngx-places" 
+                        value="{{user.StreetNumber}}"
+                        [ngClass]="{ 'is-invalid':streetNumError }"
+                        (onAddressChange)="handleAddressChange($event)" />
+                    <div *ngIf="streetNumError" class="text-danger error">Street Number is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddressStreetName">Street Name</label>
+                    <input required type="text" 
+                        class="form-control"
+                        value="{{user.StreetName}}"
+                        id="inputAddressStreetName" [ngClass]="{ 'is-invalid':streetNameError }"
+                        placeholder="Street Name">
+                    <div *ngIf="streetNameError" class="text-danger error">Street Name is required</div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputAddressCity">City/Suburb</label>
+                        <input required type="text"
+                            class="form-control" [ngClass]="{ 'is-invalid':citySubError }"
+                            value="{{user.CitySuburb}}"
+                            id="inputAddressCity" placeholder="City/Suburb">
+                        <div *ngIf="citySubError" class="text-danger error">City/Suburb is required</div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputAddressState">State</label>
+                        <input required type="text" class="form-control"
+                            id="inputAddressState" placeholder="State" 
+                            [ngClass]="{ 'is-invalid':stateError }"
+                            value="{{user.State}}">
+                        <div *ngIf="stateError" class="text-danger error">State is required</div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputAddressPostcode">Postcode</label>
+                        <input required type="text"
+                            class="form-control" [ngClass]="{ 'is-invalid':postcodeError }" 
+                            value="{{user.Postcode}}"
+                            id="inputAddressPostcode" placeholder="Postcode">
+                        <div *ngIf="postcodeError" class="text-danger error">Postcode is required</div>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <button class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-danger ml-3">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

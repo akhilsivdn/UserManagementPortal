@@ -1,0 +1,72 @@
+<div>
+    <div class="d-flex justify-content-between align-items-center p-3 header-banner">
+        <h5 class="text-white">USER MANAGEMENT PORTAL</h5>
+        <div>
+            <button class="btn btn-primary" [routerLink]="['/home']">Home</button>
+            <button class="btn btn-warning ml-3" [routerLink]="['/view-all']">View All</button>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center h-100">
+        <form class="register-wrapper mt-5 mb-5" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputfname4">First Name</label>
+                    <input type="text" required class="form-control" id="inputfname4"
+                        [ngClass]="{ 'is-invalid':firstNameError }" placeholder="First Name">
+                    <div *ngIf="firstNameError" class="text-danger error">First name is required</div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputlname4">Last Name</label>
+                    <input type="text" required class="form-control" id="inputlname4"
+                        [ngClass]="{ 'is-invalid':lastNameError }" placeholder="Last Name">
+                    <div *ngIf="lastNameError" class="text-danger error">Last name is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" required class="form-control" id="inputEmail"
+                    [ngClass]="{ 'is-invalid':emailError }" placeholder="Email Address">
+                <div *ngIf="emailError" class="text-danger error">Email is required</div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddressStreetNumber">Street Number</label>
+                <input required ngx-google-places-autocomplete class="form-control" placeholder="Street Number"
+                    id="inputAddressStreetNumber" #placesRef="ngx-places" 
+                    [ngClass]="{ 'is-invalid':streetNumError }"
+                    (onAddressChange)="handleAddressChange($event)" />
+                <div *ngIf="streetNumError" class="text-danger error">Street Number is required</div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddressStreetName">Street Name</label>
+                <input required type="text" [ngClass]="{ 'is-invalid':streetNameError }" 
+                    class="form-control"
+                    id="inputAddressStreetName" placeholder="Street Name">
+                <div *ngIf="streetNameError" class="text-danger error">Street Name is required</div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputAddressCity">City/Suburb</label>
+                    <input required type="text" [ngClass]="{ 'is-invalid':citySubError }" 
+                        class="form-control"
+                        id="inputAddressCity" placeholder="City/Suburb">
+                    <div *ngIf="citySubError" class="text-danger error">City/Suburb is required</div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAddressState">State</label>
+                    <input [ngClass]="{ 'is-invalid':stateError }" required type="text" class="form-control"
+                        id="inputAddressState" placeholder="State">
+                    <div *ngIf="stateError" class="text-danger error">State is required</div>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputAddressPostcode">Postcode</label>
+                    <input required type="text" [ngClass]="{ 'is-invalid':postcodeError }" 
+                        class="form-control"
+                        id="inputAddressPostcode" placeholder="Postcode">
+                    <div *ngIf="postcodeError" class="text-danger error">Postcode is required</div>
+                </div>
+            </div>
+            <button class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
